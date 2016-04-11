@@ -50,7 +50,9 @@ server.route({
     config: {
         validate: {
             payload: {
-                name: Joi.string().required()
+                name: Joi.string().required(),
+                email: Joi.string().required(),
+                university: Joi.string()
             }
         },
         handler: applicants.new

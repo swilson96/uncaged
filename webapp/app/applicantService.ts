@@ -11,9 +11,6 @@ export class ApplicantService {
     }
 
     signUp(applicant: Applicant) {
-        if (!applicant.time) {
-            //applicant.time = new Date();
-        }
         return this.client.post("/applicants", applicant);
     }
 }
