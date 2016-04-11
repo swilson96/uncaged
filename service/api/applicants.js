@@ -14,8 +14,12 @@ module.exports = {
      * /applicants POST
      */
     new: (request, reply) => {
-        dbClient.addApplicant(request.payload).then( result => {
-            reply(result)
+        var applicant = request.payload;
+        if (!applicant.time) {
+            applicant.time = new Date();
+        }
+        dbClient.addApplicant(applicant).then(result => {
+            reply(result);
         });
     }
 };

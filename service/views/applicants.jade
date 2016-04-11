@@ -1,5 +1,10 @@
 extends layout
 
 block content
-    div
-        p Applicants here
+    table
+        each applicant in applicants
+            tr
+                td #{applicant.name}
+                td #{applicant.email}
+                td #{applicant.university}
+                td #{applicant.time}
