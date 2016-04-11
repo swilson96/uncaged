@@ -124,10 +124,11 @@ gulp.task('default', function (callback) {
     )
 });
 
-gulp.task('build', function (callback) {
+gulp.task('deploy', function (callback) {
     runSequence(
         'clean',
         'build-webapp',
+        'run',
         callback
     )
 });
