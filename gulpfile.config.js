@@ -21,10 +21,6 @@ var GulpConfig = (function () {
             'node_modules/ng2-bs3-modal/**/*',
             'node_modules/rxjs/**/*'
         ];
-
-
-        this.dest = './build';
-        this.webappDest = this.dest;
     }
 
     return GulpConfig;

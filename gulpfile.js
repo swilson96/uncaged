@@ -11,8 +11,9 @@ var gulp = require('gulp'),
     config = new Config(),
     server;
 
+
 gulp.task('clean', function () {
-    return del(config.dest + '/**');
+    return del(config.webappSrc + '/node_modules');
 });
 
 
@@ -28,29 +29,15 @@ gulp.task('compile-ts', function () {
         .pipe(tsc(tsProject));
 
     tsResult.dts
-        .pipe(gulp.dest(config.webappDest));
+        .pipe(gulp.dest(config.webappSrc));
 
-    return tsResult.js.pipe(gulp.dest(config.webappDest + '/app'));
+    return tsResult.js.pipe(gulp.dest(config.webappSrc + '/app'));
 });
 
-gulp.task('copy-webapp-content', function () {
-    return gulp.src(config.staticContent)
-        .pipe(gulp.dest(config.webappDest + '/content'));
-});
-
-gulp.task('copy-webapp-html', function () {
-    return gulp.src(config.webappHtml)
-        .pipe(gulp.dest(config.webappDest + '/'));
-});
-
-gulp.task('copy-webapp-rootfiles', function () {
-    return gulp.src(config.webappRootFiles)
-        .pipe(gulp.dest(config.webappDest));
-});
 
 gulp.task('copy-webapp-nodemodules', function () {
     return gulp.src(config.webappRequiredModules, { base: '.'})
-        .pipe(gulp.dest(config.webappDest));
+        .pipe(gulp.dest(config.webappSrc));
 });
 
 gulp.task('deploy-tsc', function (callback) {
@@ -63,21 +50,14 @@ gulp.task('deploy-tsc', function (callback) {
 
 gulp.task('build-webapp', function (callback) {
     runSequence(
-        ['deploy-tsc', 'copy-webapp-content', 'copy-webapp-html', 'copy-webapp-rootfiles', 'copy-webapp-nodemodules'],
+        ['deploy-tsc', 'copy-webapp-nodemodules'],
         callback
     )
 });
 
 
-
-
-
 gulp.task('watch', function(callback) {
     gulp.watch(config.typescript, ['deploy-tsc']);
-    gulp.watch(config.staticContent, ['copy-webapp-content']);
-    gulp.watch(config.webappHtml, ['copy-webapp-html']);
-    gulp.watch(config.webappRootFiles, ['copy-webapp-rootfiles']);
-
     callback();
 });
 
@@ -115,7 +95,6 @@ gulp.task('run', function (callback) {
 
 gulp.task('default', function (callback) {
     runSequence(
-        'clean',
         ['build-webapp', 'stop-db'],
         'watch',
         'start-db',
