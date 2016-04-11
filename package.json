@@ -1,0 +1,43 @@
+{
+  "name": "uncaged",
+  "version": "0.0.1",
+  "description": "Student sign-up",
+  "main": "service/app.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swilson96/uncaged"
+  },
+  "author": "Simon Wilson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/swilson96/uncaged/issues"
+  },
+  "homepage": "TBC",
+  "dependencies": {
+    "angular2": "2.0.0-beta.13",
+    "es6-shim": "^0.35.0",
+    "hapi": "^13.3.0",
+    "inert": "^3.2.0",
+    "joi": "^8.0.5",
+    "mongodb": "^2.1.16",
+    "promise": "^7.1.1",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "systemjs": "0.19.25",
+    "zone.js": "0.6.6"
+  },
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-live-server": "0.0.29",
+    "gulp-tslint": "^4.3.4",
+    "gulp-typescript": "^2.12.2",
+    "lite-server": "^2.1.0",
+    "run-sequence": "^1.1.5",
+    "tslint": "^3.7.1",
+    "typescript": "^1.8.9",
+  }
+}
