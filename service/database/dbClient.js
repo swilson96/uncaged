@@ -1,7 +1,11 @@
 var dbConn = require('./dbConnection');
 
 function universities() {
-    return dbConn.database.collection('universities')
+    return dbConn.database.collection('universities');
+}
+
+function applicants() {
+    return dbConn.database.collection('applicants');
 }
 
 module.exports = {
@@ -15,5 +19,17 @@ module.exports = {
 
     getUniversities: () => {
         return universities().find().toArray();
+    },
+
+    addApplicant: applicant => {
+        return applicants()
+            .insertOne(applicant)
+            .then( result => {
+                return result.ops[0];
+            });
+    },
+
+    getApplicants: () => {
+        return applicants().find().toArray();
     }
 };
