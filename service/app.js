@@ -89,6 +89,9 @@ server.register(require('inert'), (err) => {
         }
     });
 
+    server.route({ method: 'GET', path: '/home', handler: (req, rep) => { rep.redirect('/'); } });
+    server.route({ method: 'GET', path: '/success', handler: (req, rep) => { rep.redirect('/'); } });
+
     server.register(require('vision'), (err) => {
 
         server.views({
