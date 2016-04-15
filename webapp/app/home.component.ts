@@ -24,7 +24,7 @@ import {ApplicantService} from './applicantService'
                 <label for="company">Email: </label>
                 <input type="text" class="form-control" [(ngModel)]="applicant.email" >
               </div>
-              <button type="submit" class="btn btn-default">Sign Up</button>
+              <button type="submit" [disabled]="eventSelected" class="btn btn-default">Sign Up</button>
           </form>
         </div>
         `,
@@ -33,13 +33,17 @@ import {ApplicantService} from './applicantService'
 
 export class Home {
     applicant: Applicant = new Applicant();
-    event = {name: "Loading event name..."};
+    eventSelected = false;
+    event: Event = new Event();
     events = [];
 
     constructor(private router: Router, private service: ApplicantService, private eventService: EventService){
+        this.event.name = "Loading event name...";
+
         this.eventService.list().subscribe((data) => {
             this.events = data;
             this.event = this.events[0];
+            this.eventSelected = event ? true : false;
         });
     }
 
