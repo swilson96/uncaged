@@ -10,8 +10,6 @@ var config = process.env.NODE_ENV === 'production' ? require('./configuration-re
 var events = require('./api/events');
 var applicants = require('./api/applicants');
 
-var admin = require('./admin/applicants');
-
 var dbConnection = require('./database/dbConnection');
 
 var port = process.env.PORT || parseInt(config.port, 10) || 4000;
