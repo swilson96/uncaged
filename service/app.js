@@ -87,6 +87,8 @@ server.register(require('inert'), (err) => {
         }
     });
 
+    server.route({ method: 'GET', path: '/admin/home', handler: (req, rep) => { rep.redirect('/admin'); } });
+
     server.route({
         method: 'GET',
         path: '/{param*}',
