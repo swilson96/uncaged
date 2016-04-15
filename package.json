@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/swilson96/uncaged/issues"
   },
-  "homepage": "TBC",
+  "homepage": "https://uncaged.herokuapp.com/",
   "dependencies": {
     "angular2": "2.0.0-beta.13",
     "del": "^2.2.0",
