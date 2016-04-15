@@ -39,6 +39,3 @@ node_modules
 webapp/typings/
 webapp/app/*.js
 webapp/app/*.js.map
-
-# gulb build folder
-build
