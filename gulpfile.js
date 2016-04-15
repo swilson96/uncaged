@@ -12,9 +12,6 @@ var gulp = require('gulp'),
     server;
 
 
-gulp.task('clean', function () {
-    return del(config.webappSrc + '/node_modules');
-});
 
 
 gulp.task('ts-lint', function () {
@@ -23,15 +20,26 @@ gulp.task('ts-lint', function () {
         .pipe(tslint.report('prose'));
 });
 
-var tsProject = tsc.createProject(config.webappSrc + '/tsconfig.json');
-gulp.task('compile-ts', function () {
-    var tsResult = tsProject.src()
-        .pipe(tsc(tsProject));
+var tsWebProject = tsc.createProject(config.webappSrc + '/tsconfig.json');
+gulp.task('compile-ts-web', function () {
+    var tsResult = tsWebProject.src()
+        .pipe(tsc(tsWebProject));
 
     tsResult.dts
         .pipe(gulp.dest(config.webappSrc));
 
     return tsResult.js.pipe(gulp.dest(config.webappSrc + '/app'));
+});
+
+var tsAdminProject = tsc.createProject(config.adminappSrc + '/tsconfig.json');
+gulp.task('compile-ts-admin', function () {
+    var tsResult = tsAdminProject.src()
+        .pipe(tsc(tsAdminProject));
+
+    tsResult.dts
+        .pipe(gulp.dest(config.adminappSrc));
+
+    return tsResult.js.pipe(gulp.dest(config.adminappSrc + '/app'));
 });
 
 
@@ -40,24 +48,30 @@ gulp.task('copy-webapp-nodemodules', function () {
         .pipe(gulp.dest(config.webappSrc));
 });
 
+gulp.task('copy-admin-nodemodules', function () {
+    return gulp.src(config.webappRequiredModules, { base: '.'})
+        .pipe(gulp.dest(config.adminappSrc));
+});
+
 gulp.task('deploy-tsc', function (callback) {
     runSequence(
         'ts-lint',
-        'compile-ts',
+        ['compile-ts-web', 'compile-ts-admin'],
         callback
     )
 });
 
-gulp.task('build-webapp', function (callback) {
+gulp.task('build-webapps', function (callback) {
     runSequence(
-        ['deploy-tsc', 'copy-webapp-nodemodules'],
+        ['deploy-tsc', 'copy-webapp-nodemodules', 'copy-admin-nodemodules'],
         callback
     )
 });
 
 
 gulp.task('watch', function(callback) {
-    gulp.watch(config.typescript, ['deploy-tsc']);
+    gulp.watch(config.webappTypescript, ['compile-ts-web']);
+    gulp.watch(config.adminTypescript, ['compile-ts-admin']);
     callback();
 });
 
@@ -95,9 +109,8 @@ gulp.task('run', function (callback) {
 
 gulp.task('default', function (callback) {
     runSequence(
-        ['build-webapp', 'stop-db'],
+        'build-webapps',
         'watch',
-        'start-db',
         'run',
         callback
     )
@@ -105,8 +118,7 @@ gulp.task('default', function (callback) {
 
 gulp.task('deploy', function (callback) {
     runSequence(
-        'clean',
-        'build-webapp',
+        'build-webapps',
         'run',
         callback
     )

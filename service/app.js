@@ -79,6 +79,16 @@ server.route({
 server.register(require('inert'), (err) => {
     server.route({
         method: 'GET',
+        path: '/admin/{param*}',
+        handler: {
+            directory: {
+                path: path.resolve(path.join(__dirname, '../adminapp'))
+            }
+        }
+    });
+
+    server.route({
+        method: 'GET',
         path: '/{param*}',
         handler: {
             directory: {

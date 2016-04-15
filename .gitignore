@@ -39,3 +39,6 @@ node_modules
 webapp/typings/
 webapp/app/*.js
 webapp/app/*.js.map
+adminapp/typings/
+adminapp/app/*.js
+adminapp/app/*.js.map
