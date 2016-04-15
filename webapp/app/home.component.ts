@@ -3,7 +3,10 @@ import {Router} from 'angular2/router';
 
 import {ServiceClient} from './serviceClient'
 
+import {Event} from './event'
 import {Applicant} from './applicant'
+
+import {EventService} from './eventService'
 import {ApplicantService} from './applicantService'
 
 
@@ -11,6 +14,7 @@ import {ApplicantService} from './applicantService'
     selector: 'home',
     template:`
         <div class='content'>
+          <h4>{{event.name}}</h4>
           <form (ngSubmit)="signUp()">
               <div class="form-group">
                 <label for="name">Name: </label>
@@ -24,16 +28,23 @@ import {ApplicantService} from './applicantService'
           </form>
         </div>
         `,
-    providers: [ApplicantService, ServiceClient]
+    providers: [ApplicantService, EventService, ServiceClient]
 })
 
 export class Home {
     applicant: Applicant = new Applicant();
+    event = {name: "Loading event name..."};
+    events = [];
 
-    constructor(private router: Router, private service: ApplicantService){ }
+    constructor(private router: Router, private service: ApplicantService, private eventService: EventService){
+        this.eventService.list().subscribe((data) => {
+            this.events = data;
+            this.event = this.events[0];
+        });
+    }
 
     signUp() {
-        this.service.signUp(this.applicant).subscribe(newApplicant => {
+        this.service.signUp(this.event, this.applicant).subscribe(newApplicant => {
             console.log('Signed in ' + newApplicant.name);
             return this.router.navigate(['Success']);
         });

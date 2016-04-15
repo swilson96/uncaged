@@ -1,35 +1,47 @@
 var dbConn = require('./dbConnection');
 
-function universities() {
-    return dbConn.database.collection('universities');
-}
-
-function applicants() {
-    return dbConn.database.collection('applicants');
+function events() {
+    return dbConn.database.collection('events');
 }
 
 module.exports = {
-    addUniversity: uni => {
-        return universities()
-            .insertOne(uni)
+    addEvent: event => {
+        return events()
+            .insertOne(event)
             .then( result => {
                 return result.ops[0];
             });
     },
 
-    getUniversities: () => {
-        return universities().find().toArray();
+    getEvents: () => {
+        return events().find().toArray();
     },
 
-    addApplicant: applicant => {
-        return applicants()
-            .insertOne(applicant)
-            .then( result => {
-                return result.ops[0];
+    getEvent: (id) => {
+        return events().find({"_id": dbConn.ObjectID(id)}).limit(1);
+    },
+
+    closeEvent: (id) => {
+        return events().update(
+            {_id: dbConn.ObjectID(id)},
+            {
+                $set: {open: false}
             });
     },
 
-    getApplicants: () => {
-        return applicants().find().toArray();
-    }
+    openEvent: (id) => {
+        return events().update(
+            {_id: dbConn.ObjectID(id)},
+            {
+                $set: {open: true}
+            });
+    },
+
+    addApplicant: (id, applicant) => {
+        return events().update(
+            {_id: dbConn.ObjectID(id)},
+            {
+                $push: { applicants: applicant }
+            });
+    },
 };

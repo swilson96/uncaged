@@ -2,23 +2,23 @@ var dbClient = require('../database/dbClient');
 
 module.exports = {
     /*
-     * /applicants GET
+     * /event/{id}/applicants GET
      */
     list: (request, reply) => {
-        dbClient.getApplicants().then( result => {
-            reply(result);
+        dbClient.getEvent(request.params.id).then( result => {
+            reply(result.applicants);
         });
     },
 
     /*
-     * /applicants POST
+     * /event/{id}/applicants POST
      */
     new: (request, reply) => {
         var applicant = request.payload;
         if (!applicant.time) {
             applicant.time = new Date();
         }
-        dbClient.addApplicant(applicant).then(result => {
+        dbClient.addApplicant(request.params.id, applicant).then(result => {
             reply(result);
         });
     }

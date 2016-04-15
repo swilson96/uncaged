@@ -8,11 +8,6 @@ var GulpConfig = (function () {
         this.serverStartScript = '/app.js';
 
         this.typescript = this.webappSrc + '/app/*.ts';
-        this.staticContent = this.webappSrc +'/content/**';
-        this.webappHtml = this.webappSrc + '/index.html';
-        this.webappRootFiles = [
-            this.webappSrc + '/config*.json'
-        ];
         this.webappRequiredModules = [
             'node_modules/es6-shim/**/*',
             'node_modules/angular2/**/*',
