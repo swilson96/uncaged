@@ -26,7 +26,6 @@
     "gulp-typescript": "^2.12.2",
     "hapi": "^13.3.0",
     "inert": "^3.2.0",
-    "jade": "^1.11.0",
     "joi": "^8.0.5",
     "lite-server": "^2.1.0",
     "mongodb": "^2.1.16",

@@ -92,25 +92,8 @@ server.register(require('inert'), (err) => {
     server.route({ method: 'GET', path: '/home', handler: (req, rep) => { rep.redirect('/'); } });
     server.route({ method: 'GET', path: '/success', handler: (req, rep) => { rep.redirect('/'); } });
 
-    server.register(require('vision'), (err) => {
 
-        server.views({
-            engines: {jade: require('jade')},
-            path: __dirname + '/views',
-            compileOptions: {
-                pretty: true
-            }
-        });
-
-        server.route({
-            method: 'GET',
-            path: '/admin/applicants',
-            handler: admin.list
-        });
-
-        dbConnection.initialiseConnection().then(server.start(function () {
-            console.log('Server listening on port ' + port);
-        }));
-    });
-
+    dbConnection.initialiseConnection().then(server.start(function () {
+        console.log('Server listening on port ' + port);
+    }));
 });
