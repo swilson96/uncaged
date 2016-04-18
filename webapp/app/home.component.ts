@@ -22,7 +22,7 @@ import {ApplicantService} from './applicantService'
               </div>
               <div class="form-group">
                 <label for="company">Email: </label>
-                <input type="text" class="form-control" [(ngModel)]="applicant.email" >
+                <input type="text" class="form-control" required [(ngModel)]="applicant.email" >
               </div>
               <button type="submit" [disabled]="eventSelected" class="btn btn-default">Sign Up</button>
           </form>
@@ -43,7 +43,7 @@ export class Home {
         this.eventService.list().subscribe((data) => {
             this.events = data;
             this.event = this.events[0];
-            this.eventSelected = event ? true : false;
+            this.eventSelected = this.event ? true : false;
         });
     }
 

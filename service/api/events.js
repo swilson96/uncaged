@@ -36,6 +36,7 @@ module.exports = {
      * /events/{id}/closed PUT
      */
     close: (request, reply) => {
+        console.log(request.params.id);
         dbClient.closeEvent(request.params.id).then( result => {
             reply(result);
         });

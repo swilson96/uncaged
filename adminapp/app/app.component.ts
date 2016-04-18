@@ -3,6 +3,7 @@ import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router'
 import {HTTP_PROVIDERS} from 'angular2/http';
 
 import {Home} from './home.component';
+import {EventPage} from './event.component';
 
 @Component({
     selector: 'app',
@@ -23,6 +24,11 @@ import {Home} from './home.component';
         name: 'Home',
         component: Home,
         useAsDefault: true
+    },
+    {
+        path: '/event',
+        name: 'Event',
+        component: EventPage
     }
 ])
 

@@ -18,9 +18,11 @@ import {EventService} from './eventService'
             <button *ngIf="!event.open" (click)="open(event)">Open</button>
           </div>
           <div>
+             <h3>New Event:</h3>
              <form (ngSubmit)="create()">
-             <input type="text" class="form-control" [(ngModel)]="event.name" >
-             <button type="submit" class="btn btn-default">Create</button>
+                 <input type="text" class="form-control" required [(ngModel)]="event.name" >
+                 <input type="text" class="form-control" required [(ngModel)]="event.date" >
+                 <button type="submit" class="btn btn-default">Create</button>
              </form>
           </div>
         </div>
@@ -33,25 +35,36 @@ export class Home {
     event: Event = new Event();
 
     constructor(private router: Router, private eventService: EventService){
+        this.refresh();
+    }
+
+    refresh() {
         this.eventService.list().subscribe((data) => {
             this.events = data;
         });
     }
 
     details() {
-
+        return this.router.navigate(['Event']);
     }
 
     close(event) {
-
+        this.eventService.close(event).subscribe((data) => {
+            this.refresh();
+        });
     }
 
     open(event) {
-
+        this.eventService.open(event).subscribe((data) => {
+            this.refresh();
+        });
     }
 
     create() {
-
+        this.eventService.create(this.event).subscribe((data) => {
+            this.event = new Event();
+            this.refresh();
+        });
     }
 }
 
