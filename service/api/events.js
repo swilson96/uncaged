@@ -38,7 +38,11 @@ module.exports = {
     close: (request, reply) => {
         console.log(request.params.id);
         dbClient.closeEvent(request.params.id).then( result => {
-            reply(result);
+            if (result.result.ok > 0) {
+                return reply(result).code(201);
+            } else {
+                return reply("No event recorded with ID: " + request.params.id).code(404);
+            }
         });
     },
 
@@ -47,7 +51,11 @@ module.exports = {
      */
     open: (request, reply) => {
         dbClient.openEvent(request.params.id).then( result => {
-            reply(result);
+            if (result.result.ok > 0) {
+                return reply(result).code(201);
+            } else {
+                return reply("No event recorded with ID: " + request.params.id).code(404);
+            }
         });
     }
 };

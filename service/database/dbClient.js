@@ -7,10 +7,7 @@ function events() {
 module.exports = {
     addEvent: event => {
         return events()
-            .insertOne(event)
-            .then( result => {
-                return result.ops[0];
-            });
+            .insertOne(event);
     },
 
     getEvents: () => {

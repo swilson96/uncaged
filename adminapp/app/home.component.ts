@@ -13,9 +13,9 @@ import {EventService} from './eventService'
         <div class='content'>
           <h2>Events</h2>
           <div *ngFor="#event of events">
-            <div (click)="details">{{event.name}}</div>
-            <button *ngIf="event.open" (click)="close(event)">Close</button>
-            <button *ngIf="!event.open" (click)="open(event)">Open</button>
+            <div class="inline" (click)="details">{{event.name}}</div>
+            <button class="small" *ngIf="event.open" (click)="close(event)">Close</button>
+            <button class="small" *ngIf="!event.open" (click)="open(event)">Open</button>
           </div>
           <div>
              <h3>New Event:</h3>

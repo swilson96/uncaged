@@ -31,7 +31,7 @@ server.route({
 
 server.route({
     method: 'PUT',
-    path: '/api/events/{id}/close',
+    path: '/api/events/{id}/closed',
     handler: events.close
 });
 
@@ -88,6 +88,7 @@ server.register(require('inert'), (err) => {
     });
 
     server.route({ method: 'GET', path: '/admin/home', handler: (req, rep) => { rep.redirect('/admin'); } });
+    server.route({ method: 'GET', path: '/admin/event*', handler: (req, rep) => { rep.redirect('/admin'); } });
 
     server.route({
         method: 'GET',
@@ -101,9 +102,9 @@ server.register(require('inert'), (err) => {
 
     server.route({ method: 'GET', path: '/home', handler: (req, rep) => { rep.redirect('/'); } });
     server.route({ method: 'GET', path: '/success', handler: (req, rep) => { rep.redirect('/'); } });
-
-
-    dbConnection.initialiseConnection().then(server.start(function () {
-        console.log('Server listening on port ' + port);
-    }));
 });
+
+
+dbConnection.initialiseConnection().then(server.start(function () {
+    console.log('Server listening on port ' + port);
+}));
