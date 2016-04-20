@@ -42,3 +42,5 @@ webapp/app/*.js.map
 adminapp/typings/
 adminapp/app/*.js
 adminapp/app/*.js.map
+common/*.js
+common/*.js.map

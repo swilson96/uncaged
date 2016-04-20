@@ -1,13 +1,13 @@
 import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
 
-import {ServiceClient} from './serviceClient'
+import {ServiceClient} from './serviceClient';
 
-import {Event} from './event'
-import {Applicant} from './applicant'
+import {Event} from './event';
+import {Applicant} from './applicant';
 
-import {EventService} from './eventService'
-import {ApplicantService} from './applicantService'
+import {EventService} from './eventService';
+import {ApplicantService} from './applicantService';
 
 
 @Component({
@@ -24,7 +24,7 @@ import {ApplicantService} from './applicantService'
                 <label for="company">Email: </label>
                 <input type="text" class="form-control" required [(ngModel)]="applicant.email" >
               </div>
-              <button type="submit" [disabled]="eventSelected" class="btn btn-default">Sign Up</button>
+              <button type="submit" [disabled]="!eventSelected" class="btn btn-default">Sign Up</button>
           </form>
         </div>
         `,
@@ -44,6 +44,7 @@ export class Home {
             this.events = data;
             this.event = this.events[0];
             this.eventSelected = this.event ? true : false;
+            console.log('event selected? ' + this.eventSelected)
         });
     }
 

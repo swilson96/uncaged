@@ -5,14 +5,18 @@ var GulpConfig = (function () {
         this.webappSrc = './webapp';
         this.adminappSrc = './adminapp';
         this.serverSrc = './service';
+        this.commonSrc = './common'
 
         this.serverStartScript = '/app.js';
 
+        this.commonTypescript = this.commonSrc + '*.ts';
         this.webappTypescript = this.webappSrc + '/app/*.ts';
         this.adminTypescript = this.adminappSrc+ '/app/*.ts';
+
         this.typescript = [
             this.webappTypescript,
             this.adminTypescript,
+            this.commonTypescript
         ];
         this.webappRequiredModules = [
             'node_modules/es6-shim/**/*',

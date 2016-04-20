@@ -13,16 +13,22 @@ import {EventService} from './eventService'
         <div class='content'>
           <h2>Events</h2>
           <div *ngFor="#event of events">
-            <div class="inline" (click)="details">{{event.name}}</div>
+            <div class="link inline" (click)="details(event._id)">{{event.name}}</div>
             <button class="small" *ngIf="event.open" (click)="close(event)">Close</button>
             <button class="small" *ngIf="!event.open" (click)="open(event)">Open</button>
           </div>
           <div>
              <h3>New Event:</h3>
              <form (ngSubmit)="create()">
+                <div class="form-group">
+                <label for="name">Name:</label>
                  <input type="text" class="form-control" required [(ngModel)]="event.name" >
+                </div>
+                <div class="form-group">
+                <label for="name">Date:</label>
                  <input type="text" class="form-control" required [(ngModel)]="event.date" >
-                 <button type="submit" class="btn btn-default">Create</button>
+                </div>
+                <button type="submit" class="btn btn-default">Create</button>
              </form>
           </div>
         </div>
@@ -44,8 +50,8 @@ export class Home {
         });
     }
 
-    details() {
-        return this.router.navigate(['Event']);
+    details(eventId) {
+        return this.router.navigate(['Event', {id: eventId}]);
     }
 
     close(event) {

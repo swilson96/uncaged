@@ -13,12 +13,33 @@ var gulp = require('gulp'),
 
 
 
-
 gulp.task('ts-lint', function () {
     return gulp.src(config.typescript)
         .pipe(tslint())
         .pipe(tslint.report('prose'));
 });
+
+var tsCommonProject = tsc.createProject(config.commonSrc + '/tsconfig.json');
+gulp.task('compile-ts-common', function () {
+    var tsResult = tsCommonProject.src()
+        .pipe(tsc(tsCommonProject));
+
+    tsResult.dts
+        .pipe(gulp.dest(config.commonSrc));
+
+    return tsResult.js.pipe(gulp.dest(config.commonSrc));
+});
+
+gulp.task('copy-ts-common-to-web', function () {
+    return gulp.src(config.commonSrc + '/*.js', { base: './common'})
+        .pipe(gulp.dest(config.webappSrc + "/app"));
+});
+
+gulp.task('copy-ts-common-to-admin', function () {
+    return gulp.src(config.commonSrc + '/*.js', { base: './common'})
+        .pipe(gulp.dest(config.adminappSrc + "/app"));
+});
+
 
 var tsWebProject = tsc.createProject(config.webappSrc + '/tsconfig.json');
 gulp.task('compile-ts-web', function () {
@@ -56,6 +77,8 @@ gulp.task('copy-admin-nodemodules', function () {
 gulp.task('deploy-tsc', function (callback) {
     runSequence(
         'ts-lint',
+        'compile-ts-common',
+        ['copy-ts-common-to-web', 'copy-ts-common-to-admin'],
         ['compile-ts-web', 'compile-ts-admin'],
         callback
     )

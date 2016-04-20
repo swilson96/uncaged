@@ -26,7 +26,7 @@ import {EventPage} from './event.component';
         useAsDefault: true
     },
     {
-        path: '/event',
+        path: '/event/:id',
         name: 'Event',
         component: EventPage
     }
