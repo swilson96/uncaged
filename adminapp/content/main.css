@@ -10,7 +10,7 @@ body {
 }
 
 div.content {
-    max-width: 500px;
+    max-width: 300px;
     margin: 10px auto;
     padding: 10px 20px;
     background: #f4f7f8;
@@ -140,10 +140,10 @@ label.light {
     border-radius: 100%;
 }
 
-@media screen and (min-width: 480px) {
+@media screen and (min-width: 800px) {
 
     div.content {
-        max-width: 480px;
+        max-width: 800px;
     }
 
 }

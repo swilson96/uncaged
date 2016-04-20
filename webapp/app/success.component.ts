@@ -7,7 +7,7 @@ import {Router} from 'angular2/router';
         <div class="content">
           <h2>Thanks for signing up! You will hear from us in the next few days.</h2>
           <fieldset>
-            <button (click)="gotoHome()">Next Visitor</button>
+            <button (click)="gotoHome()">Continue</button>
           </fieldset>
         </div>
         `
