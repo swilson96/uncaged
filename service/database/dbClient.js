@@ -1,3 +1,4 @@
+var Promise = require('promise');
 var dbConn = require('./dbConnection');
 
 function events() {
@@ -15,7 +16,12 @@ module.exports = {
     },
 
     getEvent: (id) => {
-        return events().find({"_id": dbConn.ObjectID(id)}).limit(1);
+        return new Promise(function (resolve, reject) {
+            events().find({"_id": dbConn.ObjectID(id)}).limit(1).next((err, result) => {
+                if (err) reject(err);
+                else resolve(result);
+            });
+        });
     },
 
     closeEvent: (id) => {

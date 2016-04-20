@@ -93,6 +93,7 @@ gulp.task('build-webapps', function (callback) {
 
 
 gulp.task('watch', function(callback) {
+    gulp.watch(config.commonTypescript, ['deploy-tsc']);
     gulp.watch(config.webappTypescript, ['compile-ts-web']);
     gulp.watch(config.adminTypescript, ['compile-ts-admin']);
     callback();

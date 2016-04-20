@@ -14,7 +14,7 @@ module.exports = {
      * /events/{id} GET
      */
     get: (request, reply) => {
-        dbClient.getEventById(request.params.id).then( result => {
+        dbClient.getEvent(request.params.id).then( result => {
             reply(result);
         });
     },

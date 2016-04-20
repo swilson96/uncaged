@@ -18,6 +18,11 @@ export class EventService {
             .map(json => <[Event]> json);
     }
 
+    single(eventId): Observable<Event> {
+        return this.client.get("/events/" + eventId)
+            .map(json => <Event> json);
+    }
+
     create(event: Event): Observable<Event> {
         return this.client.post("/events", event)
             .map(json => <Event> json);

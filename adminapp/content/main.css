@@ -10,7 +10,7 @@ body {
 }
 
 div.content {
-    max-width: 300px;
+    max-width: 500px;
     margin: 10px auto;
     padding: 10px 20px;
     background: #f4f7f8;
@@ -25,6 +25,14 @@ div.link {
     display: inline-block;
     cursor: pointer;
     text-decoration: underline;
+}
+
+table {
+    margin-bottom: 30px;
+}
+
+th {
+    text-align: left;
 }
 
 h1 {
