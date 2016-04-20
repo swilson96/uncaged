@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     tsc = require('gulp-typescript'),
     tslint = require('gulp-tslint'),
     del = require('del'),
+    rename = require('gulp-rename'),
     typescript = require('typescript'),
     runSequence = require('run-sequence'),
     gls = require('gulp-live-server'),
@@ -129,7 +130,21 @@ gulp.task('run', function (callback) {
     callback();
 });
 
+gulp.task('rename-web-files-for-release', function() {
+    return gulp.src(config.webappSrc + '/**/*-release.*', { base: '.' })
+        .pipe(rename(function(path) {
+            path.basename = path.basename.replace(/-release$/, '');
+        }))
+        .pipe(gulp.dest('.'));
+});
 
+gulp.task('rename-admin-files-for-release', function() {
+    return gulp.src(config.adminappSrc + '/**/*-release.*', { base: '.' })
+        .pipe(rename(function(path) {
+            path.basename = path.basename.replace(/-release$/, '');
+        }))
+        .pipe(gulp.dest('.'));
+});
 
 gulp.task('default', function (callback) {
     runSequence(
@@ -143,6 +158,7 @@ gulp.task('default', function (callback) {
 gulp.task('deploy', function (callback) {
     runSequence(
         'build-webapps',
+        ['rename-web-files-for-release', 'rename-admin-files-for-release'],
         'run',
         callback
     )
