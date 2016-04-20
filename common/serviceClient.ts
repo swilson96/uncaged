@@ -35,4 +35,10 @@ export class ServiceClient {
             .map(res => res.json())
             .catch(this.handleError);
     }
+
+    public put(url: string, jsonEntity = null): Observable<Object> {
+        return this.http.put(this.baseUrl + url, JSON.stringify(jsonEntity), this.getJsonRequestOptions())
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
 }

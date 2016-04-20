@@ -17,4 +17,17 @@ export class EventService {
         return this.client.get("/events")
             .map(json => <[Event]> json);
     }
+
+    create(event: Event): Observable<Event> {
+        return this.client.post("/events", event)
+            .map(json => <Event> json);
+    }
+
+    close(event: Event) {
+        return this.client.put("/events/" + event._id + "/closed");
+    }
+
+    open(event: Event) {
+        return this.client.put("/events/" + event._id + "/open");
+    }
 }
